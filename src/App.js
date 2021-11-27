@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastContainer } from "react-bootstrap";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
