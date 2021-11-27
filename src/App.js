@@ -3,7 +3,7 @@ import { ToastContainer } from "react-bootstrap";
 import Navbar from "./components/Navbar";
 import { Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
-
+import AddContact from "./components/AddContact";
 const App = ()=> {
   return (
     <div className="App">
@@ -12,7 +12,7 @@ const App = ()=> {
       <Switch>
           <Route exact path ="/" component= {()=><Home/>} />
           <Route exact path ="/add">
-              <h1>I am add compoents</h1>
+              <AddContact/>
           </Route>
           
       </Switch>
