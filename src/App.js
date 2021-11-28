@@ -1,8 +1,8 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar/Navbar.js";
 import { Route, Switch } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/DashBoard/Home";
 const App = ()=> {
   return (
     <div className="App">
