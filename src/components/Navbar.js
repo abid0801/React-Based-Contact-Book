@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import "./Navbar.css"
+
 const Navbar = () => {
     return (
-        <nav className= "navbar navbar-expand-lg navbar-blue bg-dark py-2">
-            <Link to="/" className= "navbar-brand ml-5">React Redux Contact </Link>
+        <nav className= "navbar">
+            <Link to="/" className= "text_nav">React Redux Contact </Link>
 
         </nav>
     )

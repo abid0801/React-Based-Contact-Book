@@ -1,4 +1,72 @@
 .post{
     background: #FFFFFF;
-border: 1px solid black
+   border:0px;
+   margin-bottom: 10px;
+   padding: 10px;
+   height: 80px;
+   border-radius: 8px;
+}
+
+.row{
+position: absolute;
+width: 1056px;
+height: 727px;
+left: 192px;
+top: 148px;
+}
+
+.modalContainer{
+    width: 500px;
+    margin: auto;
+    height: 400px;
+}
+
+.formContainer{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.fullForm{
+    margin: 40px
+}
+
+.formSingle{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    height: 30px
+}
+
+.searchAndAdd{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    height: 50px;
+}
+
+.inputBox{
+    width: 100%;
+    border-radius: 8px;
+    margin-right: 10px;
+    border: 5px solid rgba(0, 0, 0, .4)
+}
+
+.searchButton{
+    border-radius: 8px;
+    width: 10%;
+    margin-right: 10px;
+    background-color: #4CCCE9;
+    color: white;
+    border: 0px 
+}
+
+.addButton{
+    border-radius: 8px;
+    width: 20%;
+    background-color: #4CCCE9;
+    color: white;
+    border: 0px
 }

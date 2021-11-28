@@ -1,13 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { Form } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Dexie from "dexie";
 import "./Home.css";
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
-
-
-
+import ReactToPrint from 'react-to-print';
 
 const Home = () => {
     const [posts, setPosts] = useState("");
@@ -18,6 +16,9 @@ const Home = () => {
     const [email, setEmail] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [addPosts, setAddPosts] = useState("");
+    const [searchValue, setSearchValue] = useState("");
+
+    let componentRef = useRef();
 
     const db = new Dexie("ReactDexie");
     //create the database store
@@ -38,7 +39,20 @@ const Home = () => {
         }
         getPosts();
   
-    }, [])
+    }, []);
+
+   
+
+    const search = (name) =>{
+
+        const checkContactEmailExists = posts.filter((contact) =>
+        contact.firstName === name ? contact : null
+      );
+
+        console.log(checkContactEmailExists);
+
+    }
+
 
     const handleSubmit = (e) => {
 
@@ -66,24 +80,29 @@ const Home = () => {
     
     }
 
+    const customStyles = {
+        content: {
+         height: '500px',
+         width: '600px',
+         margin: 'auto'
+        },
+      };
+
     let postData;
   
   
     if(posts.length > 0) {
       
-        postData = <div className="postsContainer">
+        postData = <div ref={(el) => (componentRef = el)} className="postsContainer">
                     {
                         posts.map(post => {
                          
                              return <div className="post" key={post.title}>
                                  
-                                            <h2>{post.firstName} {post.surName}</h2>
-                                            <h2>{post.phoneNumber}</h2>
-                                            
-                                            
-                                         
-                                            
-                                        </div>       
+                                            <h4>{post.firstName} {post.surName}</h4>
+                                            <p style={{'font-size':'18px','color':'grey'}}>{post.phoneNumber}</p>
+
+                                    </div>       
                         })
                     }
                    </div>
@@ -93,61 +112,79 @@ const Home = () => {
                    </div>
     }
 
+
+
     return (
         <div className="container">
-            <div className="row">
-                <div className="col-md-12 ">
-                    <h3 className="btn btn-outline-dark" onClick={()=>setIsModalOpen(!isModalOpen)}>
-                            Add Contact
-                    </h3>
+            <div style={{'background-color': '#F3F5F6', 'padding': '15px', 'border-radius':'5px'}} className="row">
+            <div>
+                <div className='searchAndAdd'>
+                    <input className='inputBox' type="text" name="Search" required value={searchValue} onChange= {(e)=>{setSearchValue(e.target.value)}} />
+                    <button className='searchButton' onClick= {()=> search(searchValue)}> search </button>
+                    <button  className='addButton' onClick={()=>setIsModalOpen(!isModalOpen)}> Add Contacts </button>
                 </div>
-                <div className="col-md-6 mx-auto p-5">
-                    
-                    <h1>
-                        Welcome to Contact Book homepage
+                {postData}
+            </div>
+            </div>
+
+            <Modal
+            style={customStyles}
+           isOpen={isModalOpen}>
+            <div className="modalContainer">
+                <div >
+                    <h1 className="display-6 text-center">
+                Contact Info
                     </h1>
-                    {postData}
+                     <div className='formContainer'>
+                            <form onSubmit={handleSubmit} >
+                                    {/* First Name: 
+                                    <input type="text" name="firstName" required value={firstName} onChange= {(e)=>{setFirstName(e.target.value)}} />
+                                    
+                                    <br></br>
+                                Sur Name:
+                                    <input type="text" name="surName" required value={surName} onChange= {(e)=>{setSurName(e.target.value)}} />
+                                    <br></br>
+                                   
+                                    Email:
+                                    <input type="email" name="email" required value={email} onChange= {(e)=>{setEmail(e.target.value)}} />
+                                    <br></br>
+                                    
+                                    Phone Number:
+                                    <input type="number" name="phoneNumber" required value={phoneNumber} onChange= {(e)=>{setPhoneNumber(e.target.value)}} />
+                                    <br></br>
+                                    <input type="submit" value="Submit" /> */}
+                                    <div className='fullForm'>
+                                        <div className='formSingle'>
+                                            <p>First Name</p> 
+                                            <input type="text" name="firstName" required value={firstName} onChange= {(e)=>{setFirstName(e.target.value)}} />
+                                        </div>
+                                        <div className='formSingle'>
+                                            Sur Name:
+                                            <input type="text" name="surName" required value={surName} onChange= {(e)=>{setSurName(e.target.value)}} />
+                                        </div>
+                                        <div className='formSingle'>
+                                            Email:
+                                            <input type="email" name="email" required value={email} onChange= {(e)=>{setEmail(e.target.value)}} />
+                                        </div>
+                                        <div className='formSingle'>
+                                            Phone Number:
+                                            <input type="number" name="phoneNumber" required value={phoneNumber} onChange= {(e)=>{setPhoneNumber(e.target.value)}} />   
+                                        </div>
+                                        <div><input type="submit" value="Submit" /></div>
+                                    </div>
+                            </form>
+                        </div>
+
                 </div>
-
-            </div>
-            <Modal 
-           isOpen={isModalOpen}
-           contentLabel="Minimal Modal Example"
-        >
-         <div className="container">
-        <div className="row">
-            <h1 className="display-3 text-center">
-                Add Contacts
-            </h1>
-            <div className="col-md-6 shadow mx-auto p-5">
-            <form onSubmit={handleSubmit} >
-                <label>
-                   First Name:
-                    <input type="text" name="firstName" required value={firstName} onChange= {(e)=>{setFirstName(e.target.value)}} />
-                    </label>
-                    <label>
-                   Sur Name:
-                    <input type="text" name="surName" required value={surName} onChange= {(e)=>{setSurName(e.target.value)}} />
-                    </label> 
-                    <label>
-                    Email:
-                    <input type="email" name="email" required value={email} onChange= {(e)=>{setEmail(e.target.value)}} />
-                    </label>
-                    <label>
-                    Phone Number:
-                    <input type="number" name="phoneNumber" required value={phoneNumber} onChange= {(e)=>{setPhoneNumber(e.target.value)}} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                    </form>
-
-                
-            </div>
-
-        </div>
-        <button onClick={()=>setIsModalOpen(!isModalOpen)}>Close Modal</button>
-    </div >
-          
+                <button onClick={()=>setIsModalOpen(!isModalOpen)}>Close Modal</button>
+            </div >
         </Modal>
+
+        <ReactToPrint
+          trigger={() => <button style={{'background-color': '#4CCCE9', 'color':'white', 'border':'0px'}}>Print this out!</button>}
+          content={() => componentRef}
+        />
+        
             
         </div>
     )
