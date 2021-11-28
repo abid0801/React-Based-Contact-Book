@@ -158,7 +158,7 @@ const Home = () => {
                                             <input type="text" name="firstName" required value={firstName} onChange= {(e)=>{setFirstName(e.target.value)}} />
                                         </div>
                                         <div className='formSingle'>
-                                            Sur Name:
+                                            SurName:
                                             <input type="text" name="surName" required value={surName} onChange= {(e)=>{setSurName(e.target.value)}} />
                                         </div>
                                         <div className='formSingle'>
