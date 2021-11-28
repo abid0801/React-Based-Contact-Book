@@ -50,8 +50,8 @@ const Home = () => {
       );
       
         if(searchResult.length!==0){
-            return toast(`${searchResult[0].firstName} ${searchResult[0].phoneNumber}`,{
-                autoClose: 5000
+            return toast(`${searchResult[0].firstName} ${searchResult[0].surName}, Phone No ${searchResult[0].phoneNumber} found`,{
+                autoClose: 10000
             })
         } else{
             return toast.warning('Not found')
@@ -69,8 +69,8 @@ const Home = () => {
 
         if(firstName !== "" && surName !== "" && email !== "" && phoneNumber !== ""){
             let post = {
-                firstName: firstName,
-                surName:surName,
+                firstName: firstName.trim(),
+                surName:surName.trim(),
                 email: email,
                 phoneNumber : phoneNumber
             }
