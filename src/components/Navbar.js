@@ -4,10 +4,11 @@ import "./Navbar.css"
 
 const Navbar = () => {
     return (
-        <nav className= "navbar">
-            <Link to="/" className= "text_nav">React Redux Contact </Link>
+        <div className= "topBar">
+            <h3 style={{'margin-right': '50px'}}>Home</h3>
+            <h3>Contact List</h3>
 
-        </nav>
+        </div>
     )
 }
 

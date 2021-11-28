@@ -10,7 +10,6 @@
 .row{
 position: absolute;
 width: 1056px;
-height: 727px;
 left: 192px;
 top: 148px;
 }
@@ -37,6 +36,19 @@ top: 148px;
     justify-content: space-between;
     margin-bottom: 20px;
     height: 30px
+}
+
+.submitButtonDiv{
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.submitButton{
+    color: white;
+    background-color: #4CCCE9;
+    border: 0px;
+    border-radius: 8px;
+    height: 30px;
 }
 
 .searchAndAdd{

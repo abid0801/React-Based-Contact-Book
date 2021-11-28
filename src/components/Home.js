@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import Dexie from "dexie";
 import "./Home.css";
 import Modal from 'react-modal';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import ReactToPrint from 'react-to-print';
 
 const Home = () => {
@@ -45,11 +45,22 @@ const Home = () => {
 
     const search = (name) =>{
 
-        const checkContactEmailExists = posts.filter((contact) =>
+        const searchResult = posts.filter((contact) =>
         contact.firstName === name ? contact : null
       );
+      
+        if(searchResult.length!==0){
+            return toast(`${searchResult[0].firstName} ${searchResult[0].phoneNumber}`,{
+                autoClose: 5000
+            })
+        } else{
+            return toast.warning('Not found')
+        }
 
-        console.log(checkContactEmailExists);
+    //   return toast.warning(searchResult[0].phoneNumber)
+    // console.log(searchResult.length)
+        
+        // console.log(searchResult[0].phoneNumber);
 
     }
 
@@ -88,6 +99,7 @@ const Home = () => {
         },
       };
 
+
     let postData;
   
   
@@ -108,15 +120,15 @@ const Home = () => {
                    </div>
     }else{
         postData = <div className="message">
-                     <p>There are no posts to show</p>
+                     <p>There are no contact information to show</p>
                    </div>
     }
 
 
 
     return (
-        <div className="container">
-            <div style={{'background-color': '#F3F5F6', 'padding': '15px', 'border-radius':'5px'}} className="row">
+        <div style={{'margin-bottom': '800px'}}>
+            <div style={{'background-color': '#F3F5F6', 'padding': '15px', 'border-radius':'5px',}} className="row">
             <div>
                 <div className='searchAndAdd'>
                     <input className='inputBox' type="text" name="Search" required value={searchValue} onChange= {(e)=>{setSearchValue(e.target.value)}} />
@@ -132,27 +144,14 @@ const Home = () => {
            isOpen={isModalOpen}>
             <div className="modalContainer">
                 <div >
+                    <div style={{'display': 'flex', 'justify-content':'flex-end'}}>
+                        <button style={{'border':'0px', 'background-color': 'white'}} onClick={()=>setIsModalOpen(!isModalOpen)}>X</button>
+                    </div>
                     <h1 className="display-6 text-center">
                 Contact Info
                     </h1>
                      <div className='formContainer'>
                             <form onSubmit={handleSubmit} >
-                                    {/* First Name: 
-                                    <input type="text" name="firstName" required value={firstName} onChange= {(e)=>{setFirstName(e.target.value)}} />
-                                    
-                                    <br></br>
-                                Sur Name:
-                                    <input type="text" name="surName" required value={surName} onChange= {(e)=>{setSurName(e.target.value)}} />
-                                    <br></br>
-                                   
-                                    Email:
-                                    <input type="email" name="email" required value={email} onChange= {(e)=>{setEmail(e.target.value)}} />
-                                    <br></br>
-                                    
-                                    Phone Number:
-                                    <input type="number" name="phoneNumber" required value={phoneNumber} onChange= {(e)=>{setPhoneNumber(e.target.value)}} />
-                                    <br></br>
-                                    <input type="submit" value="Submit" /> */}
                                     <div className='fullForm'>
                                         <div className='formSingle'>
                                             <p>First Name</p> 
@@ -170,22 +169,22 @@ const Home = () => {
                                             Phone Number:
                                             <input type="number" name="phoneNumber" required value={phoneNumber} onChange= {(e)=>{setPhoneNumber(e.target.value)}} />   
                                         </div>
-                                        <div><input type="submit" value="Submit" /></div>
+                                        <div className='submitButtonDiv'><input className='submitButton' type="submit" value="Submit" /></div>
                                     </div>
                             </form>
                         </div>
 
                 </div>
-                <button onClick={()=>setIsModalOpen(!isModalOpen)}>Close Modal</button>
+                
             </div >
         </Modal>
 
-        <ReactToPrint
-          trigger={() => <button style={{'background-color': '#4CCCE9', 'color':'white', 'border':'0px'}}>Print this out!</button>}
-          content={() => componentRef}
-        />
-        
-            
+        <div style={{'display': 'flex', 'justify-content': 'flex-end', 'margin-right' : '190px', 'margin-top' : '40px'}}>
+            <ReactToPrint
+            trigger={() => <button style={{'background-color': '#4CCCE9', 'color':'white', 'border':'0px',}}>Export</button>}
+            content={() => componentRef}
+            />
+        </div>
         </div>
     )
 }
