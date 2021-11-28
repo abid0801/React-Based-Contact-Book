@@ -6,10 +6,10 @@ An React application to save and search contact objects, stored in IndexedDB.
 
 ## Project Status
 
-Insert and Search are option functional.
-Contact List can be exported as PDF.
-Renders the whole contact list.
-IndexedDB is full functional as offline storage.
+*Insert and Search are option functional.
+*Contact List can be exported as PDF.
+*Renders the whole contact list.
+*IndexedDB is full functional as offline storage.
 
 
 ## Project Screen Shot(s)
