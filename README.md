@@ -4,6 +4,8 @@ React Based Contact Book
 
 An React application to save and search contact objects, stored in IndexedDB.
 
+Netlify link : https://epic-jennings-187352.netlify.app
+
 ## Project Status
 
 * Insert and Search are option functional.
